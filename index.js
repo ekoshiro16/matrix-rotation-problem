@@ -10,7 +10,7 @@ function rotateImageby90(img, layer = 0) {
     // First we create a helper variable to keep track of the X by X dimensions of our image 
     let n = img.length;
 
-    // Base case: For an image of odd dimensions, stop before the central layer. For an even dimension image, go through all layers.
+    // Base case: For an image of odd dimensions, we stop before the central layer since that innermost layer will jsut be a 1x1 cube. For an even dimension image, however, we go through all layers, since the innermost layer will be a 2x2 cube..
     if (n % 2 === 0 && layer >= n / 2) return img;
     if (n % 2 !== 0 && layer >= Math.floor(n / 2)) return img;
 
@@ -31,10 +31,13 @@ function rotateImageby90(img, layer = 0) {
         // Once we have the values of our corners, we can shift everything over by 90 degrees without fear of overwriting any values. 
         // Moving clockwise, first we overwrite the top left corner value with the bottom left corner value. 
         img[layer][layer + i] = bottomLeftValue;
+
         // Then the top right with the top left. 
         img[layer + i][n - 1 - layer] = topLeftValue;
+
         // Then the bottom right with the top right. 
         img[n - 1 - layer][n - 1 - layer - i] = topRightValue;
+
         // Then the bottom left with the bottom right.  
         img[n - 1 - layer - i][layer] = bottomRightValue;
     }
